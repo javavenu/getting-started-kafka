@@ -2,7 +2,7 @@
 version: '3'
 services:
   zookeeper-1:
-    image: confluentinc/cp-zookeeper:7.4.1
+    image: confluentinc/cp-zookeeper:latest
     hostname: zookeeper-1
     container_name: zookeeper-1
     volumes:
@@ -15,7 +15,7 @@ services:
       ZOO_SERVERS: server.1=zookeeper-1:2888:3888;2181 server.2=zookeeper-2:2888:3888;2181 server.3=zookeeper-3:2888:3888;2181
 
   zookeeper-2:
-    image: confluentinc/cp-zookeeper:7.4.1
+    image: confluentinc/cp-zookeeper:latest
     hostname: zookeeper-2
     container_name: zookeeper-2
     volumes:
@@ -28,7 +28,7 @@ services:
       ZOO_SERVERS: server.1=zookeeper-1:2888:3888;2181 server.2=zookeeper-2:2888:3888;2181 server.3=zookeeper-3:2888:3888;2181
 
   zookeeper-3:
-    image: confluentinc/cp-zookeeper:7.4.1
+    image: confluentinc/cp-zookeeper:latest
     hostname: zookeeper-3
     container_name: zookeeper-3
     volumes:
@@ -42,7 +42,7 @@ services:
 
 
   broker-1:
-    image: confluentinc/cp-kafka:7.4.1
+    image: confluentinc/cp-kafka:latest
     hostname: broker-1
     container_name: broker-1
     volumes:
@@ -63,7 +63,7 @@ services:
       KAFKA_SNAPSHOT_TRUST_EMPTY: true
 
   broker-2:
-    image: confluentinc/cp-kafka:7.4.1
+    image: confluentinc/cp-kafka:latest
     hostname: broker-2
     container_name: broker-2
     volumes:
@@ -85,7 +85,7 @@ services:
       KAFKA_SNAPSHOT_TRUST_EMPTY: true
 
   broker-3:
-    image: confluentinc/cp-kafka:7.4.1
+    image: confluentinc/cp-kafka:latest
     hostname: broker-3
     container_name: broker-3
     volumes:
@@ -109,9 +109,9 @@ services:
 
 
   rest-proxy:
-    image: confluentinc/cp-kafka-rest:7.4.1
+    image: confluentinc/cp-kafka-rest:latest
     ports:
-      - "8082:8082"
+      - "8072:8072"
     depends_on:
       - zookeeper-1
       - zookeeper-2
@@ -124,4 +124,4 @@ services:
     environment:
       KAFKA_REST_HOST_NAME: rest-proxy
       KAFKA_REST_BOOTSTRAP_SERVERS: 'broker-1:29092,broker-2:29093,broker-3:29094'
-      KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+      KAFKA_REST_LISTENERS: "http://0.0.0.0:8072"
